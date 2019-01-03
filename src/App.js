@@ -1,162 +1,55 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Person from './Person/Person';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-      seconds: 0 ,
-      isLogedIn : true,
-      nameval : 'Eve',
-      selectValue : 'coconut',
-      isGoing : true,
-      isOpen : false
-    };
-    this.state.data = [
-      {id:1,title:'first',price:10.0},
-      {id:2,title:'second',price:20.2},
-      {id:3,title:'third',price:10.0235}
-    ];
-    this.state.items = [
-      {id:1,term:'first',description:'first item'},
-      {id:2,term:'second',description:'second item'},
-      {id:3,term:'third',description:'third item'}
-    ];
-    this.handleChange = this.handleChange.bind(this);
-    this.stateChange = this.stateChange.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.selectBoxChange = this.selectBoxChange.bind(this);
-    this.onClickHandler = this.onClickHandler.bind(this);
+class App extends Component {  
+  state = {
+    persons: [
+      {name:'test',age:20},
+      {name:'test1',age:21}
+    ]
   }
-  handleChange() {
-    this.setState({ seconds: 1 });
-  }
-  stateChange(){
-    this.setState({isLogedIn : !this.state.isLogedIn});
-  }
-  handleInputChange(event){
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
 
+  switNameHandler = (newName) => {
+    // Dont do this : this.state.persons[0].name = 'xxx';
     this.setState({
-      [name]: value
-    });
+      persons: [
+        {name:newName,age:30},
+        {name:'dgvde',age:31}
+      ]
+    })
   }
-  handleSubmit(){
-    // Show success message
-    console.log("Form submitted successfully");
+
+  nameChangedHandler = (event) => {
+    this.setState({
+      persons: [
+        {name:event.target.value,age:30},
+        {name:'ghghg',age:31}
+      ]
+    })
   }
-  selectBoxChange(event){
-    let selectVal = event.target.value;
-    this.setState({selectValue: selectVal});
-  }
-  onClickHandler(event){
-    this.setState({isOpen: !this.state.isOpen});
-  }
-  
+
   render() {
+    const styleval = {
+      backgroundColor : 'white',
+      font : 'inherit',
+      border: '1x solid #eee',
+      cursor: 'pointer'
+    }
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>{this.props.name} 
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-        <div>
-          <p>{this.state.seconds}</p>
-          <button 
-          onClick={this.handleChange} >
-            Add
-          </button>
-          {
-            this.state.isLogedIn ? (<button onClick={this.stateChange} >Login</button>) : 
-            (<button onClick={this.stateChange} >Logout</button>)
-          }
-          <table>
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Price</th>
-              </tr>
-            </thead>
-            <tbody>
-                {this.state.data.map(( listValue, index ) => {
-                  return (
-                    <tr key={index}>
-                      <td>{listValue.id}</td>
-                      <td>{listValue.title}</td>
-                      <td>{listValue.price.toFixed(2)}</td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-          <form onSubmit={this.handleSubmit}>
-            <div>
-              <label>
-                Name:
-                <input 
-                  name="name"
-                  type="text" 
-                  value={this.state.nameval} 
-                  onChange={this.handleInputChange} />
-              </label>
-            </div>
-            <div>
-             <label>
-              Is going:
-              <input
-                name="isGoing"
-                type="checkbox"
-                checked={this.state.isGoing}
-                onChange={this.handleInputChange} />
-            </label>
-            </div>
-            <div>
-              <label>
-                Pick your favorite flavor:
-                <select value={this.state.selectValue} onChange={this.selectBoxChange}>
-                  <option value="grapefruit">Grapefruit</option>
-                  <option value="lime">Lime</option>
-                  <option value="coconut">Coconut</option>
-                  <option value="mango">Mango</option>
-                </select>
-              </label>
-            </div>
-            <div>
-              <input type="submit" value="Submit" />
-            </div>
-          </form>
-        </div>
-
-        <button onClick={this.onClickHandler}
-          aria-haspopup="true"
-          aria-expanded={this.state.isOpen}>
-          Expand
-        </button>
-        {this.state.isOpen ? (
-          <ul>
-            <li>Option 1</li>
-            <li>Option 2</li>
-            <li>Option 3</li>
-          </ul>
-        ) : null}
-
+        <h1>Hi, i am a react app.</h1>
+        <button style={styleval} onClick={this.switNameHandler.bind(this,'xcvfgd')}>switch name</button>
+        <Person 
+        name={this.state.persons[0].name} 
+        age={this.state.persons[0].age} 
+        click={this.switNameHandler} 
+        nameChanged={this.nameChangedHandler} />
+        <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>My hobbies: Music</Person>
       </div>
     );
+    // return React.createElement('div', {className:'App'}, React.createElement('h1', null, 'Hi, i\'m a react app.!!!'));
   }
 }
 
