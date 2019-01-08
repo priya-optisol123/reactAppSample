@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import {PostData} from '../services/PostData';
+import {Redirect} from 'react-router-dom';
 
 class Login extends Component { 
 
@@ -22,7 +23,12 @@ class Login extends Component {
     login(){
         PostData('login',this.state)
         .then((result) => {
-            console.log(result)
+            if(result.user){
+                return <Redirect to='/welcome'  />
+            }
+            else{
+                console.log(result);
+            }
         });
     }
 

@@ -1,6 +1,6 @@
 export function PostData(type,userData){
 
-    let BaseUrl = 'http://alpha-api.littlescribe.com/';
+    let BaseUrl = 'http://localhost:1338/';
 
     return new Promise((resolve,reject) =>{
         fetch(BaseUrl+type,{
