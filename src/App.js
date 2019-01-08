@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person';
+import Routes from './routes';
 
 class App extends Component {  
   state = {
@@ -38,17 +39,20 @@ class App extends Component {
       cursor: 'pointer'
     }
     return (
-      <div className="App">
-        <h1>Hi, i am a react app.</h1>
-        <button style={styleval} onClick={this.switNameHandler.bind(this,'xcvfgd')}>switch name</button>
-        <Person 
-        name={this.state.persons[0].name} 
-        age={this.state.persons[0].age} 
-        click={this.switNameHandler} 
-        nameChanged={this.nameChangedHandler} />
-        <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>My hobbies: Music</Person>
-      </div>
+      <Routes />
     );
+    // return (
+    //   <div className="App">
+    //     <h1>Hi, i am a react app.</h1>
+    //     <button style={styleval} onClick={this.switNameHandler.bind(this,'xcvfgd')}>switch name</button>
+    //     <Person 
+    //     name={this.state.persons[0].name} 
+    //     age={this.state.persons[0].age} 
+    //     click={this.switNameHandler} 
+    //     nameChanged={this.nameChangedHandler} />
+    //     <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>My hobbies: Music</Person>
+    //   </div>
+    // );
     // return React.createElement('div', {className:'App'}, React.createElement('h1', null, 'Hi, i\'m a react app.!!!'));
   }
 }
